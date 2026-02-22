@@ -45,12 +45,12 @@ export function EventFilters() {
   return (
     <div className="w-full bg-white pt-10 pb-16">
       <div className="mx-auto max-w-[1400px] px-4 sm:px-6 lg:px-10">
-        <h2 className="text-sm font-semibold text-neutral-500 mb-1">
+        <p className="text-sm font-semibold text-neutral-500 mb-1">
           Browse Events
-        </h2>
-        <h1 className="text-4xl font-bold tracking-tight text-neutral-900 mb-6">
+        </p>
+        <h2 className="text-4xl font-bold tracking-tight text-neutral-900 mb-6">
           {location}
-        </h1>
+        </h2>
 
         <div className="flex flex-wrap items-center gap-3">
           <Popover open={isLocationOpen} onOpenChange={setIsLocationOpen}>
