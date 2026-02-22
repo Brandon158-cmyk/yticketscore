@@ -99,7 +99,7 @@ export function HeroBanner() {
       {/* ============================================================ */}
       {/*  Top section — Stadium image + headline + search             */}
       {/* ============================================================ */}
-      <div className="relative flex min-h-[500px] w-full flex-col justify-center overflow-hidden pb-16 pt-32 lg:min-h-[640px]">
+      <div className="relative flex min-h-[340px] w-full flex-col justify-center overflow-hidden pb-10 pt-24 lg:min-h-[400px]">
         {/* ---- Background image & gradients ---- */}
         <div className="absolute inset-0 z-0">
           <Image
@@ -107,56 +107,31 @@ export function HeroBanner() {
             alt=""
             fill
             priority
-            className="object-cover object-[70%_center]"
+            className="object-cover object-[70%_center] grayscale"
             aria-hidden
           />
-          {/* Asymmetrical gradient mask */}
-          <div className="absolute inset-0 bg-linear-to-r from-black via-black/80 to-transparent lg:via-black/70 lg:to-black/20" />
-          <div className="absolute inset-0 bg-linear-to-t from-black via-black/20 to-black/60" />
+          {/* Simple vignette gradient */}
+          <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-black/60" />
         </div>
-
-        {/* ---- Sparkle / stardust texture ---- */}
-        <div
-          className="pointer-events-none absolute inset-0 z-0 opacity-15 mix-blend-screen"
-          aria-hidden
-          style={{
-            backgroundImage: `radial-gradient(1px 1px at 10% 20%, rgba(255,255,255,0.8), transparent),
-                              radial-gradient(1px 1px at 25% 60%, rgba(255,255,255,0.6), transparent),
-                              radial-gradient(1.5px 1.5px at 40% 15%, rgba(255,255,255,0.9), transparent),
-                              radial-gradient(1px 1px at 55% 75%, rgba(255,255,255,0.5), transparent),
-                              radial-gradient(1px 1px at 70% 35%, rgba(255,255,255,0.7), transparent),
-                              radial-gradient(1.5px 1.5px at 80% 80%, rgba(255,255,255,0.6), transparent),
-                              radial-gradient(1px 1px at 90% 10%, rgba(255,255,255,0.8), transparent),
-                              radial-gradient(1px 1px at 15% 90%, rgba(255,255,255,0.5), transparent),
-                              radial-gradient(1.5px 1.5px at 60% 45%, rgba(255,255,255,0.7), transparent),
-                              radial-gradient(1px 1px at 35% 50%, rgba(255,255,255,0.4), transparent),
-                              radial-gradient(1px 1px at 85% 55%, rgba(255,255,255,0.6), transparent),
-                              radial-gradient(1px 1px at 5% 45%, rgba(255,255,255,0.5), transparent),
-                              radial-gradient(1.5px 1.5px at 50% 5%, rgba(255,255,255,0.8), transparent),
-                              radial-gradient(1px 1px at 75% 95%, rgba(255,255,255,0.4), transparent),
-                              radial-gradient(1px 1px at 95% 65%, rgba(255,255,255,0.7), transparent)`,
-          }}
-        />
 
         {/* ---- Content: Headline + Search ---- */}
         <div className="relative z-10 mx-auto w-full max-w-[1400px] px-4 sm:px-6 lg:px-10">
-          <div className="max-w-2xl">
-            <h1 className="text-4xl font-extrabold tracking-tight text-white sm:text-5xl lg:text-7xl leading-[1.1]">
+          <div className="mx-auto max-w-2xl text-center">
+            <h1 className="text-3xl font-extrabold tracking-tight text-white sm:text-4xl lg:text-5xl leading-[1.1]">
               See the magic{" "}
               <span className="font-medium italic text-white/70">live.</span>
             </h1>
-            <p className="mt-5 max-w-xl text-lg text-white/80 sm:mt-6 sm:text-xl">
-              Discover and book tickets for concerts, festivals, sports, and
-              more happening across Zambia.
+            <p className="mt-3 text-base text-white/70 sm:text-lg">
+              Your next best night ever is waiting
             </p>
             {/* Search bar */}
-            <div className="mt-8 w-full max-w-xl sm:mt-10">
+            <div className="mt-6 mx-auto w-full max-w-lg">
               <div className="group relative">
-                <SearchIcon className="absolute left-5 top-1/2 z-10 size-5 -translate-y-1/2 text-white/60 transition-colors group-focus-within:text-white" />
+                <SearchIcon className="absolute left-4 top-1/2 z-10 size-5 -translate-y-1/2 text-neutral-400 transition-colors group-focus-within:text-neutral-600" />
                 <Input
                   type="text"
-                  placeholder="Performer, event, venue..."
-                  className="h-16 w-full rounded-2xl border border-white/20 bg-white/10 pl-14 pr-6 text-lg font-medium text-white shadow-2xl backdrop-blur-xl transition-all placeholder:text-white/50 focus-visible:border-white/40 focus-visible:bg-white/15 focus-visible:ring-0 focus-visible:ring-offset-0"
+                  placeholder="What do you want to see live?"
+                  className="h-12 w-full rounded-full border border-neutral-200 bg-white pl-12 pr-5 text-base font-medium text-neutral-900 shadow-lg transition-all placeholder:text-neutral-400 focus-visible:border-neutral-300 focus-visible:ring-0 focus-visible:ring-offset-0"
                   aria-label="Search for events"
                 />
               </div>
@@ -168,12 +143,10 @@ export function HeroBanner() {
       {/* ============================================================ */}
       {/*  Trending Events — Carousel slider on solid black             */}
       {/* ============================================================ */}
-      <div className="relative z-10 mx-auto max-w-[1400px] px-4 pb-12 sm:px-6 lg:px-10">
+      <div className="relative z-10 mx-auto max-w-[1400px] px-4 pb-8 sm:px-6 lg:px-10">
         {/* Header row */}
-        <div className="mb-5 flex items-center justify-between">
-          <h2 className="text-lg font-bold text-white sm:text-xl">
-            Trending Events
-          </h2>
+        <div className="mb-4 flex items-center justify-between">
+          <h2 className="text-lg font-bold text-white">Trending Events</h2>
         </div>
 
         {/* ---- Desktop Carousel ---- */}
@@ -194,26 +167,23 @@ export function HeroBanner() {
                 >
                   <Link href={`/events/${event.id}`} className="group block">
                     {/* Card image */}
-                    <div className="relative aspect-4/3 w-full overflow-hidden rounded-2xl border border-white/10 ring-1 ring-white/5 transition-all duration-300 group-hover:border-white/20 group-hover:ring-white/10 group-hover:shadow-[0_0_30px_-5px_rgba(255,255,255,0.1)]">
+                    <div className="relative aspect-4/3 w-full overflow-hidden rounded-xl transition-all duration-300 group-hover:shadow-lg">
                       <Image
                         src={event.image}
                         alt={event.title}
                         fill
-                        className="object-cover transition-transform duration-500 group-hover:scale-110"
+                        className="object-cover transition-transform duration-500 group-hover:scale-105"
                       />
-                      <div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/20 to-transparent opacity-60 transition-opacity group-hover:opacity-40" />
                     </div>
 
                     {/* Card info */}
-                    <div className="mt-4 px-1">
-                      <p className="truncate text-lg font-bold text-white transition-colors">
+                    <div className="mt-3 px-0.5">
+                      <p className="truncate text-base font-bold text-white">
                         {event.title}
                       </p>
-                      <div className="mt-1 flex items-center justify-between">
-                        <p className="text-sm font-medium text-white/60">
-                          {event.date}
-                        </p>
-                        <p className="text-sm font-semibold text-white/90">
+                      <div className="mt-0.5 flex items-center justify-between">
+                        <p className="text-sm text-white/50">{event.date}</p>
+                        <p className="text-sm font-medium text-white/80">
                           From {event.price}
                         </p>
                       </div>
