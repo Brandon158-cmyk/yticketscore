@@ -324,13 +324,7 @@ export function Navbar({ variant = "transparent" }: NavbarProps) {
                       href="/sell"
                       className="rounded-md px-2 py-1.5 text-sm font-medium transition-colors hover:bg-white/10"
                     >
-                      Sell
-                    </Link>
-                    <Link
-                      href="/support"
-                      className="rounded-md px-2 py-1.5 text-sm font-medium transition-colors hover:bg-white/10"
-                    >
-                      Support
+                      Sell Tickets
                     </Link>
                   </div>
                 </div>
