@@ -224,8 +224,8 @@ export function Navbar({ variant = "transparent" }: NavbarProps) {
                   <NavigationMenuItem key={category.label}>
                     <NavigationMenuTrigger
                       className={cn(
-                        "bg-transparent px-3 py-2 text-sm font-medium transition-opacity hover:bg-transparent hover:opacity-80 focus:bg-transparent data-[state=open]:bg-transparent",
-                        "text-white",
+                        "bg-transparent px-3 py-2 text-sm transition-opacity hover:bg-transparent hover:opacity-80 focus:bg-transparent data-[state=open]:bg-transparent",
+                        "text-white font-normal cursor-pointer",
                       )}
                     >
                       {category.label}
@@ -255,13 +255,7 @@ export function Navbar({ variant = "transparent" }: NavbarProps) {
             href="/sell"
             className="text-sm font-medium opacity-90 transition-opacity hover:opacity-100"
           >
-            Sell
-          </Link>
-          <Link
-            href="/support"
-            className="text-sm font-medium opacity-90 transition-opacity hover:opacity-100"
-          >
-            Support
+            Sell Tickets
           </Link>
           <Button
             variant="ghost"
@@ -330,13 +324,7 @@ export function Navbar({ variant = "transparent" }: NavbarProps) {
                       href="/sell"
                       className="rounded-md px-2 py-1.5 text-sm font-medium transition-colors hover:bg-white/10"
                     >
-                      Sell
-                    </Link>
-                    <Link
-                      href="/support"
-                      className="rounded-md px-2 py-1.5 text-sm font-medium transition-colors hover:bg-white/10"
-                    >
-                      Support
+                      Sell Tickets
                     </Link>
                   </div>
                 </div>
