@@ -120,42 +120,25 @@ export function HeroBanner() {
       {/* ============================================================ */}
       {/*  Top section — Stadium image + headline + search             */}
       {/* ============================================================ */}
-      <div className="relative flex min-h-[340px] flex-col items-center justify-center overflow-hidden sm:min-h-[380px] lg:min-h-[420px]">
-        {/* ---- Background image ---- */}
-        <Image
-          src="/images/hero-stadium.jpg"
-          alt=""
-          fill
-          priority
-          className="absolute inset-0 object-cover object-[center_20%]"
-          aria-hidden
-        />
-
-        {/* ---- Gradient overlays — vignette on all sides ---- */}
-        <div
-          className="pointer-events-none absolute inset-x-0 top-0 h-32 bg-linear-to-b from-black/80 via-black/40 to-transparent"
-          aria-hidden
-        />
-        <div
-          className="pointer-events-none absolute inset-x-0 bottom-0 h-48 bg-linear-to-t from-black via-black/90 to-transparent"
-          aria-hidden
-        />
-        <div
-          className="pointer-events-none absolute inset-y-0 left-0 w-32 bg-linear-to-r from-black/80 via-black/40 to-transparent lg:w-48"
-          aria-hidden
-        />
-        <div
-          className="pointer-events-none absolute inset-y-0 right-0 w-32 bg-linear-to-l from-black/80 via-black/40 to-transparent lg:w-48"
-          aria-hidden
-        />
-        <div
-          className="pointer-events-none absolute inset-0 bg-black/30"
-          aria-hidden
-        />
+      <div className="relative flex min-h-[500px] w-full flex-col justify-center overflow-hidden pb-16 pt-32 lg:min-h-[640px]">
+        {/* ---- Background image & gradients ---- */}
+        <div className="absolute inset-0 z-0">
+          <Image
+            src="/images/hero-stadium.jpg"
+            alt=""
+            fill
+            priority
+            className="object-cover object-[70%_center]"
+            aria-hidden
+          />
+          {/* Asymmetrical gradient mask */}
+          <div className="absolute inset-0 bg-linear-to-r from-black via-black/80 to-transparent lg:via-black/70 lg:to-black/20" />
+          <div className="absolute inset-0 bg-linear-to-t from-black via-black/20 to-black/60" />
+        </div>
 
         {/* ---- Sparkle / stardust texture ---- */}
         <div
-          className="pointer-events-none absolute inset-0 opacity-20 mix-blend-screen"
+          className="pointer-events-none absolute inset-0 z-0 opacity-15 mix-blend-screen"
           aria-hidden
           style={{
             backgroundImage: `radial-gradient(1px 1px at 10% 20%, rgba(255,255,255,0.8), transparent),
@@ -177,24 +160,27 @@ export function HeroBanner() {
         />
 
         {/* ---- Content: Headline + Search ---- */}
-        <div className="relative z-10 flex w-full max-w-2xl flex-col items-center px-6 pt-16 pb-8 text-center sm:pt-16 lg:pt-12">
-          <h1 className="text-3xl font-bold tracking-tight text-white sm:text-4xl lg:text-5xl">
-            See the magic live
-          </h1>
-          <p className="mt-3 text-base text-white sm:mt-4 sm:text-lg">
-            Discover and book tickets for concerts, festivals, sports, and more
-            happening across Zambia
-          </p>
-          {/* Search bar */}
-          <div className="mt-7 w-full max-w-xl sm:mt-9">
-            <div className="relative">
-              <SearchIcon className="absolute left-4 top-1/2 z-10 size-5 -translate-y-1/2 text-neutral-900" />
-              <Input
-                type="text"
-                placeholder="Performer, event, venue"
-                className="h-16 w-full rounded-lg border-0 font-medium bg-white pl-12 pr-4 text-lg sm:text-md text-neutral-900 shadow-lg placeholder:text-neutral-900 focus-visible:ring-2 focus-visible:ring-white/50"
-                aria-label="Search for events"
-              />
+        <div className="relative z-10 mx-auto w-full max-w-[1400px] px-4 sm:px-6 lg:px-10">
+          <div className="max-w-2xl">
+            <h1 className="text-4xl font-extrabold tracking-tight text-white sm:text-5xl lg:text-7xl leading-[1.1]">
+              See the magic{" "}
+              <span className="font-medium italic text-white/70">live.</span>
+            </h1>
+            <p className="mt-5 max-w-xl text-lg text-white/80 sm:mt-6 sm:text-xl">
+              Discover and book tickets for concerts, festivals, sports, and
+              more happening across Zambia.
+            </p>
+            {/* Search bar */}
+            <div className="mt-8 w-full max-w-xl sm:mt-10">
+              <div className="group relative">
+                <SearchIcon className="absolute left-5 top-1/2 z-10 size-5 -translate-y-1/2 text-white/60 transition-colors group-focus-within:text-white" />
+                <Input
+                  type="text"
+                  placeholder="Performer, event, venue..."
+                  className="h-16 w-full rounded-2xl border border-white/20 bg-white/10 pl-14 pr-6 text-lg font-medium text-white shadow-2xl backdrop-blur-xl transition-all placeholder:text-white/50 focus-visible:border-white/40 focus-visible:bg-white/15 focus-visible:ring-0 focus-visible:ring-offset-0"
+                  aria-label="Search for events"
+                />
+              </div>
             </div>
           </div>
         </div>
@@ -258,26 +244,29 @@ export function HeroBanner() {
                 >
                   <Link href={`/events/${event.id}`} className="group block">
                     {/* Card image */}
-                    <div className="relative aspect-video w-full overflow-hidden rounded-xl">
+                    <div className="relative aspect-4/3 w-full overflow-hidden rounded-2xl border border-white/10 ring-1 ring-white/5 transition-all duration-300 group-hover:border-white/20 group-hover:ring-white/10 group-hover:shadow-[0_0_30px_-5px_rgba(255,255,255,0.1)]">
                       <Image
                         src={event.image}
                         alt={event.title}
                         fill
-                        className="object-cover transition-transform duration-200 group-hover:scale-105"
+                        className="object-cover transition-transform duration-500 group-hover:scale-110"
                       />
+                      <div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/20 to-transparent opacity-60 transition-opacity group-hover:opacity-40" />
                     </div>
 
                     {/* Card info */}
-                    <div className="mt-3">
-                      <p className="truncate text-lg font-semibold text-white">
+                    <div className="mt-4 px-1">
+                      <p className="truncate text-lg font-bold text-white transition-colors">
                         {event.title}
                       </p>
-                      <p className="mt-0.5 text-md text-neutral-400">
-                        {event.date}
-                      </p>
-                      <p className="mt-0.5 text-md text-neutral-400">
-                        From {event.price}
-                      </p>
+                      <div className="mt-1 flex items-center justify-between">
+                        <p className="text-sm font-medium text-white/60">
+                          {event.date}
+                        </p>
+                        <p className="text-sm font-semibold text-white/90">
+                          From {event.price}
+                        </p>
+                      </div>
                     </div>
                   </Link>
                 </CarouselItem>
@@ -313,22 +302,24 @@ export function HeroBanner() {
                       className="group flex items-center gap-3"
                     >
                       {/* Thumbnail */}
-                      <div className="relative size-12 shrink-0 overflow-hidden rounded-lg">
+                      <div className="relative size-14 shrink-0 overflow-hidden rounded-xl border border-white/10 transition-all duration-300 group-hover:border-white/20 group-hover:shadow-[0_0_20px_-5px_rgba(255,255,255,0.1)]">
                         <Image
                           src={event.image}
                           alt={event.title}
                           fill
-                          className="object-cover"
+                          className="object-cover transition-transform duration-500 group-hover:scale-110"
                         />
                       </div>
 
                       {/* Info */}
                       <div className="min-w-0 flex-1">
-                        <p className="truncate text-md font-bold text-white">
+                        <p className="truncate text-base font-bold text-white transition-colors group-hover:text-white/90">
                           {event.title}
                         </p>
-                        <p className="text-md text-neutral-400">
-                          From {event.price} · {event.date}
+                        <p className="text-sm font-medium text-white/60">
+                          From {event.price}{" "}
+                          <span className="mx-1 opacity-50">•</span>{" "}
+                          {event.date}
                         </p>
                       </div>
                     </Link>
