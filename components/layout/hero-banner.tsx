@@ -3,12 +3,7 @@
 import * as React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import {
-  ChevronLeftIcon,
-  ChevronRightIcon,
-  HeartIcon,
-  SearchIcon,
-} from "lucide-react";
+import { ChevronLeftIcon, ChevronRightIcon, SearchIcon } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import {
@@ -19,17 +14,28 @@ import {
 } from "@/components/ui/carousel";
 
 /* ------------------------------------------------------------------ */
+/*  Trending-event shape                                               */
+/* ------------------------------------------------------------------ */
+
+interface TrendingEvent {
+  id: number;
+  title: string;
+  date: string;
+  price: string;
+  image: string;
+}
+
+/* ------------------------------------------------------------------ */
 /*  Placeholder trending events data                                   */
 /* ------------------------------------------------------------------ */
 
-const trendingEvents = [
+const trendingEvents: TrendingEvent[] = [
   {
     id: 1,
     title: "J. Cole",
     date: "Sep 3",
     price: "$137",
     image: "/images/hero-stadium.jpg",
-    color: "from-amber-700 to-amber-900",
   },
   {
     id: 2,
@@ -37,7 +43,6 @@ const trendingEvents = [
     date: "Mar 28",
     price: "$103",
     image: "/images/hero-stadium.jpg",
-    color: "from-emerald-700 to-emerald-900",
   },
   {
     id: 3,
@@ -45,7 +50,6 @@ const trendingEvents = [
     date: "Jul 15",
     price: "$199",
     image: "/images/hero-stadium.jpg",
-    color: "from-violet-700 to-violet-900",
   },
   {
     id: 4,
@@ -53,7 +57,6 @@ const trendingEvents = [
     date: "Jun 16",
     price: "$76",
     image: "/images/hero-stadium.jpg",
-    color: "from-sky-700 to-sky-900",
   },
   {
     id: 5,
@@ -61,7 +64,6 @@ const trendingEvents = [
     date: "Aug 20",
     price: "$245",
     image: "/images/hero-stadium.jpg",
-    color: "from-pink-700 to-pink-900",
   },
   {
     id: 6,
@@ -69,7 +71,6 @@ const trendingEvents = [
     date: "Oct 5",
     price: "$180",
     image: "/images/hero-stadium.jpg",
-    color: "from-red-700 to-red-900",
   },
   {
     id: 7,
@@ -77,7 +78,6 @@ const trendingEvents = [
     date: "Nov 12",
     price: "$165",
     image: "/images/hero-stadium.jpg",
-    color: "from-indigo-700 to-indigo-900",
   },
   {
     id: 8,
@@ -85,7 +85,6 @@ const trendingEvents = [
     date: "Dec 1",
     price: "$210",
     image: "/images/hero-stadium.jpg",
-    color: "from-yellow-700 to-yellow-900",
   },
 ];
 
@@ -123,9 +122,12 @@ export function HeroBanner() {
       {/* ============================================================ */}
       <div className="relative flex min-h-[340px] flex-col items-center justify-center overflow-hidden sm:min-h-[380px] lg:min-h-[420px]">
         {/* ---- Background image ---- */}
-        <div
-          className="absolute inset-0 bg-cover bg-position-[center_20%] bg-no-repeat"
-          style={{ backgroundImage: "url('/images/hero-stadium.jpg')" }}
+        <Image
+          src="/images/hero-stadium.jpg"
+          alt=""
+          fill
+          priority
+          className="absolute inset-0 object-cover object-[center_20%]"
           aria-hidden
         />
 
@@ -187,18 +189,10 @@ export function HeroBanner() {
           <div className="mt-7 w-full max-w-xl sm:mt-9">
             <div className="relative">
               <SearchIcon className="absolute left-4 top-1/2 z-10 size-5 -translate-y-1/2 text-neutral-900" />
-              {/* Mobile */}
               <Input
                 type="text"
                 placeholder="Performer, event, venue"
-                className="h-16 w-full rounded-lg border-0 font-medium text-md bg-white pl-12 pr-4 text-lg text-neutral-900 shadow-lg placeholder:text-neutral-900 focus-visible:ring-2 focus-visible:ring-white/50 sm:hidden"
-                aria-label="Search for events"
-              />
-              {/* Desktop */}
-              <Input
-                type="text"
-                placeholder="Performer, event, venue"
-                className="hidden h-16 w-full rounded-lg border-0 font-medium bg-white pl-12 pr-4 text-md text-neutral-900 shadow-lg placeholder:text-neutral-900 focus-visible:ring-2 focus-visible:ring-white/50 sm:block"
+                className="h-16 w-full rounded-lg border-0 font-medium bg-white pl-12 pr-4 text-lg sm:text-md text-neutral-900 shadow-lg placeholder:text-neutral-900 focus-visible:ring-2 focus-visible:ring-white/50"
                 aria-label="Search for events"
               />
             </div>
@@ -265,14 +259,11 @@ export function HeroBanner() {
                   <Link href={`/events/${event.id}`} className="group block">
                     {/* Card image */}
                     <div className="relative aspect-video w-full overflow-hidden rounded-xl">
-                      <div
-                        className={`absolute inset-0 bg-linear-to-br ${event.color}`}
-                      />
                       <Image
                         src={event.image}
                         alt={event.title}
                         fill
-                        className="object-cover opacity-50 transition-transform duration-200 group-hover:scale-105"
+                        className="object-cover transition-transform duration-200 group-hover:scale-105"
                       />
                     </div>
 
@@ -322,14 +313,12 @@ export function HeroBanner() {
                       className="group flex items-center gap-3"
                     >
                       {/* Thumbnail */}
-                      <div
-                        className={`relative size-12 shrink-0 overflow-hidden rounded-lg bg-linear-to-br ${event.color}`}
-                      >
+                      <div className="relative size-12 shrink-0 overflow-hidden rounded-lg">
                         <Image
                           src={event.image}
                           alt={event.title}
                           fill
-                          className="object-cover opacity-50"
+                          className="object-cover"
                         />
                       </div>
 
