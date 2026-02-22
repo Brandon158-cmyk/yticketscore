@@ -35,12 +35,18 @@ const ZAMBIA_CITIES = [
   "Chipata",
 ];
 
+const DEFAULT_LOCATION = "Lusaka, Zambia";
+
 export function EventFilters() {
-  const [location, setLocation] = React.useState("Lusaka, Zambia");
+  // TODO: expose filters via onFiltersChange or context for event listing
+  const [location, setLocation] = React.useState(DEFAULT_LOCATION);
   const [isLocationOpen, setIsLocationOpen] = React.useState(false);
 
   const [date, setDate] = React.useState<DateRange | undefined>(undefined);
   const [isDateOpen, setIsDateOpen] = React.useState(false);
+
+  const startOfToday = new Date();
+  startOfToday.setHours(0, 0, 0, 0);
 
   return (
     <div className="w-full bg-white pt-10 pb-16">
@@ -58,7 +64,7 @@ export function EventFilters() {
               <Button
                 variant="outline"
                 className={`rounded-full h-10 px-5 transition-colors ${
-                  isLocationOpen || location !== "Lusaka, Zambia"
+                  isLocationOpen || location !== DEFAULT_LOCATION
                     ? "bg-neutral-900 text-white border-neutral-900 hover:bg-neutral-800 hover:text-white"
                     : "bg-white border-neutral-200 text-neutral-700 hover:bg-neutral-50"
                 }`}
@@ -139,11 +145,7 @@ export function EventFilters() {
                 onSelect={setDate}
                 autoFocus
                 numberOfMonths={2}
-                disabled={(date) => {
-                  const today = new Date();
-                  today.setHours(0, 0, 0, 0);
-                  return date < today;
-                }}
+                disabled={(candidateDate) => candidateDate < startOfToday}
                 className="p-0"
               />
               <div className="mt-4 flex items-center justify-between border-t border-neutral-100 pt-4 px-2">
