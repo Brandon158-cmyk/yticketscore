@@ -73,7 +73,7 @@ export function EventFilters() {
             >
               <Command>
                 <CommandInput
-                  placeholder=""
+                  placeholder="Search city…"
                   className="h-12 border-0 focus:ring-0"
                   autoFocus
                 />
