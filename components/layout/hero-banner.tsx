@@ -10,7 +10,8 @@ import {
   Carousel,
   CarouselContent,
   CarouselItem,
-  type CarouselApi,
+  CarouselNext,
+  CarouselPrevious,
 } from "@/components/ui/carousel";
 
 /* ------------------------------------------------------------------ */
@@ -93,28 +94,6 @@ const trendingEvents: TrendingEvent[] = [
 /* ------------------------------------------------------------------ */
 
 export function HeroBanner() {
-  const [api, setApi] = React.useState<CarouselApi>();
-  const [current, setCurrent] = React.useState(0);
-  const [count, setCount] = React.useState(0);
-
-  React.useEffect(() => {
-    if (!api) return;
-
-    const updateCurrent = () => {
-      setCurrent(api.selectedScrollSnap() + 1);
-      setCount(api.scrollSnapList().length);
-    };
-
-    updateCurrent();
-    api.on("select", updateCurrent);
-    api.on("reInit", updateCurrent);
-
-    return () => {
-      api.off("select", updateCurrent);
-      api.off("reInit", updateCurrent);
-    };
-  }, [api]);
-
   return (
     <section className="relative w-full bg-black">
       {/* ============================================================ */}
@@ -195,46 +174,17 @@ export function HeroBanner() {
           <h2 className="text-lg font-bold text-white sm:text-xl">
             Trending Events
           </h2>
-
-          {/* Pagination + arrows (desktop) */}
-          <div className="hidden items-center gap-2 sm:flex border border-white rounded-full bg-neutral-800 px-2 py-1">
-            <Button
-              variant="ghost"
-              size="icon-sm"
-              className="rounded-full border-neutral-700 text-white hover:bg-neutral-800 hover:text-white disabled:opacity-30"
-              onClick={() => api?.scrollPrev()}
-              aria-label="Previous"
-            >
-              <ChevronLeftIcon className="size-4" />
-            </Button>
-            {count > 0 && (
-              <span className="mr-1 text-sm text-white">
-                {current} of {count}
-              </span>
-            )}
-
-            <Button
-              variant="ghost"
-              size="icon-sm"
-              className="rounded-full border-neutral-700 text-white hover:bg-neutral-800 hover:text-white disabled:opacity-30"
-              onClick={() => api?.scrollNext()}
-              aria-label="Next"
-            >
-              <ChevronRightIcon className="size-4" />
-            </Button>
-          </div>
         </div>
 
         {/* ---- Desktop Carousel ---- */}
         <div className="hidden sm:block">
           <Carousel
-            setApi={setApi}
             opts={{
               align: "start",
               slidesToScroll: "auto",
               containScroll: "trimSnaps",
             }}
-            className="w-full"
+            className="w-full relative"
           >
             <CarouselContent className="-ml-4">
               {trendingEvents.map((event) => (
@@ -272,6 +222,9 @@ export function HeroBanner() {
                 </CarouselItem>
               ))}
             </CarouselContent>
+            {/* Native Shadcn Controls located appropriately */}
+            <CarouselPrevious className="absolute -left-4 top-1/2 -translate-y-1/2 border-neutral-700 bg-neutral-900/80 text-white hover:bg-neutral-800 hover:text-white" />
+            <CarouselNext className="absolute -right-4 top-1/2 -translate-y-1/2 border-neutral-700 bg-neutral-900/80 text-white hover:bg-neutral-800 hover:text-white" />
           </Carousel>
         </div>
 
