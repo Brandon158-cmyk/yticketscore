@@ -227,9 +227,11 @@ export function HeroBanner() {
             >
               <ChevronLeftIcon className="size-4" />
             </Button>
-            <span className="mr-1 text-sm text-white">
-              {current} of {count}
-            </span>
+            {count > 0 && (
+              <span className="mr-1 text-sm text-white">
+                {current} of {count}
+              </span>
+            )}
 
             <Button
               variant="ghost"
