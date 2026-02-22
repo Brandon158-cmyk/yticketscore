@@ -137,7 +137,7 @@ export function EventFilters() {
                 mode="range"
                 selected={date}
                 onSelect={setDate}
-                initialFocus
+                autoFocus
                 numberOfMonths={2}
                 disabled={(date) => {
                   const today = new Date();
