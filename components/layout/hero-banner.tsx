@@ -251,7 +251,7 @@ export function HeroBanner() {
             setApi={setApi}
             opts={{
               align: "start",
-              slidesToScroll: 4,
+              slidesToScroll: "auto",
               containScroll: "trimSnaps",
             }}
             className="w-full"
