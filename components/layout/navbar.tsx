@@ -196,7 +196,7 @@ export function Navbar({ variant = "transparent" }: NavbarProps) {
       {/* Subtle gradient overlay for legibility on hero images */}
       {isTransparent && (
         <div
-          className="pointer-events-none absolute inset-0 bg-linear-to-b from-black/40 via-black/10 to-transparent"
+          className="pointer-events-none absolute inset-x-0 top-0 h-32 bg-linear-to-b from-black/60 to-transparent"
           aria-hidden
         />
       )}

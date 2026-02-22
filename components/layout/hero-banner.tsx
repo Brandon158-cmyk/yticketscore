@@ -10,7 +10,8 @@ import {
   Carousel,
   CarouselContent,
   CarouselItem,
-  type CarouselApi,
+  CarouselNext,
+  CarouselPrevious,
 } from "@/components/ui/carousel";
 
 /* ------------------------------------------------------------------ */
@@ -93,108 +94,47 @@ const trendingEvents: TrendingEvent[] = [
 /* ------------------------------------------------------------------ */
 
 export function HeroBanner() {
-  const [api, setApi] = React.useState<CarouselApi>();
-  const [current, setCurrent] = React.useState(0);
-  const [count, setCount] = React.useState(0);
-
-  React.useEffect(() => {
-    if (!api) return;
-
-    const updateCurrent = () => {
-      setCurrent(api.selectedScrollSnap() + 1);
-      setCount(api.scrollSnapList().length);
-    };
-
-    updateCurrent();
-    api.on("select", updateCurrent);
-    api.on("reInit", updateCurrent);
-
-    return () => {
-      api.off("select", updateCurrent);
-      api.off("reInit", updateCurrent);
-    };
-  }, [api]);
-
   return (
     <section className="relative w-full bg-black">
       {/* ============================================================ */}
       {/*  Top section — Stadium image + headline + search             */}
       {/* ============================================================ */}
-      <div className="relative flex min-h-[340px] flex-col items-center justify-center overflow-hidden sm:min-h-[380px] lg:min-h-[420px]">
-        {/* ---- Background image ---- */}
-        <Image
-          src="/images/hero-stadium.jpg"
-          alt=""
-          fill
-          priority
-          className="absolute inset-0 object-cover object-[center_20%]"
-          aria-hidden
-        />
-
-        {/* ---- Gradient overlays — vignette on all sides ---- */}
-        <div
-          className="pointer-events-none absolute inset-x-0 top-0 h-32 bg-linear-to-b from-black/80 via-black/40 to-transparent"
-          aria-hidden
-        />
-        <div
-          className="pointer-events-none absolute inset-x-0 bottom-0 h-48 bg-linear-to-t from-black via-black/90 to-transparent"
-          aria-hidden
-        />
-        <div
-          className="pointer-events-none absolute inset-y-0 left-0 w-32 bg-linear-to-r from-black/80 via-black/40 to-transparent lg:w-48"
-          aria-hidden
-        />
-        <div
-          className="pointer-events-none absolute inset-y-0 right-0 w-32 bg-linear-to-l from-black/80 via-black/40 to-transparent lg:w-48"
-          aria-hidden
-        />
-        <div
-          className="pointer-events-none absolute inset-0 bg-black/30"
-          aria-hidden
-        />
-
-        {/* ---- Sparkle / stardust texture ---- */}
-        <div
-          className="pointer-events-none absolute inset-0 opacity-20 mix-blend-screen"
-          aria-hidden
-          style={{
-            backgroundImage: `radial-gradient(1px 1px at 10% 20%, rgba(255,255,255,0.8), transparent),
-                              radial-gradient(1px 1px at 25% 60%, rgba(255,255,255,0.6), transparent),
-                              radial-gradient(1.5px 1.5px at 40% 15%, rgba(255,255,255,0.9), transparent),
-                              radial-gradient(1px 1px at 55% 75%, rgba(255,255,255,0.5), transparent),
-                              radial-gradient(1px 1px at 70% 35%, rgba(255,255,255,0.7), transparent),
-                              radial-gradient(1.5px 1.5px at 80% 80%, rgba(255,255,255,0.6), transparent),
-                              radial-gradient(1px 1px at 90% 10%, rgba(255,255,255,0.8), transparent),
-                              radial-gradient(1px 1px at 15% 90%, rgba(255,255,255,0.5), transparent),
-                              radial-gradient(1.5px 1.5px at 60% 45%, rgba(255,255,255,0.7), transparent),
-                              radial-gradient(1px 1px at 35% 50%, rgba(255,255,255,0.4), transparent),
-                              radial-gradient(1px 1px at 85% 55%, rgba(255,255,255,0.6), transparent),
-                              radial-gradient(1px 1px at 5% 45%, rgba(255,255,255,0.5), transparent),
-                              radial-gradient(1.5px 1.5px at 50% 5%, rgba(255,255,255,0.8), transparent),
-                              radial-gradient(1px 1px at 75% 95%, rgba(255,255,255,0.4), transparent),
-                              radial-gradient(1px 1px at 95% 65%, rgba(255,255,255,0.7), transparent)`,
-          }}
-        />
+      <div className="relative flex min-h-[340px] w-full flex-col justify-center overflow-hidden pb-10 pt-24 lg:min-h-[400px]">
+        {/* ---- Background image & gradients ---- */}
+        <div className="absolute inset-0 z-0">
+          <Image
+            src="/images/hero-stadium.jpg"
+            alt=""
+            fill
+            priority
+            className="object-cover object-[70%_center] grayscale"
+            aria-hidden
+          />
+          {/* Simple vignette gradient */}
+          <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-black/60" />
+        </div>
 
         {/* ---- Content: Headline + Search ---- */}
-        <div className="relative z-10 flex w-full max-w-2xl flex-col items-center px-6 pt-16 pb-8 text-center sm:pt-16 lg:pt-12">
-          <h1 className="text-3xl font-bold tracking-tight text-white sm:text-4xl lg:text-5xl">
-            See the magic live
-          </h1>
-          <p className="mt-3 text-base text-white sm:mt-4 sm:text-lg">
-            Discover and book tickets for concerts, festivals, sports, and more
-            happening across Zambia
-          </p>
-          {/* Search bar */}
-          <div className="mt-7 w-full max-w-xl sm:mt-9">
-            <div className="relative">
-              <SearchIcon className="absolute left-4 top-1/2 z-10 size-5 -translate-y-1/2 text-neutral-900" />
-              <Input
-                type="text"
-                placeholder="Performer, event, venue"
-                className="h-16 w-full rounded-lg border-0 font-medium bg-white pl-12 pr-4 text-lg sm:text-md text-neutral-900 shadow-lg placeholder:text-neutral-900 focus-visible:ring-2 focus-visible:ring-white/50"
-                aria-label="Search for events"
-              />
+        <div className="relative z-10 mx-auto w-full max-w-[1400px] px-4 sm:px-6 lg:px-10">
+          <div className="mx-auto max-w-2xl text-center">
+            <h1 className="text-3xl font-extrabold tracking-tight text-white sm:text-4xl lg:text-5xl leading-[1.1]">
+              See the magic{" "}
+              <span className="font-medium italic text-white/70">live.</span>
+            </h1>
+            <p className="mt-3 text-base text-white/70 sm:text-lg">
+              Your next best night ever is waiting
+            </p>
+            {/* Search bar */}
+            <div className="mt-6 mx-auto w-full max-w-lg">
+              <div className="group relative">
+                <SearchIcon className="absolute left-4 top-1/2 z-10 size-5 -translate-y-1/2 text-neutral-400 transition-colors group-focus-within:text-neutral-600" />
+                <Input
+                  type="text"
+                  placeholder="What do you want to see live?"
+                  className="h-12 w-full rounded-full border border-neutral-200 bg-white pl-12 pr-5 text-base font-medium text-neutral-900 shadow-lg transition-all placeholder:text-neutral-400 focus-visible:border-neutral-300 focus-visible:ring-0 focus-visible:ring-offset-0"
+                  aria-label="Search for events"
+                />
+              </div>
             </div>
           </div>
         </div>
@@ -203,52 +143,21 @@ export function HeroBanner() {
       {/* ============================================================ */}
       {/*  Trending Events — Carousel slider on solid black             */}
       {/* ============================================================ */}
-      <div className="relative z-10 mx-auto max-w-[1400px] px-4 pb-12 sm:px-6 lg:px-10">
+      <div className="relative z-10 mx-auto max-w-[1400px] px-4 pb-8 sm:px-6 lg:px-10">
         {/* Header row */}
-        <div className="mb-5 flex items-center justify-between">
-          <h2 className="text-lg font-bold text-white sm:text-xl">
-            Trending Events
-          </h2>
-
-          {/* Pagination + arrows (desktop) */}
-          <div className="hidden items-center gap-2 sm:flex border border-white rounded-full bg-neutral-800 px-2 py-1">
-            <Button
-              variant="ghost"
-              size="icon-sm"
-              className="rounded-full border-neutral-700 text-white hover:bg-neutral-800 hover:text-white disabled:opacity-30"
-              onClick={() => api?.scrollPrev()}
-              aria-label="Previous"
-            >
-              <ChevronLeftIcon className="size-4" />
-            </Button>
-            {count > 0 && (
-              <span className="mr-1 text-sm text-white">
-                {current} of {count}
-              </span>
-            )}
-
-            <Button
-              variant="ghost"
-              size="icon-sm"
-              className="rounded-full border-neutral-700 text-white hover:bg-neutral-800 hover:text-white disabled:opacity-30"
-              onClick={() => api?.scrollNext()}
-              aria-label="Next"
-            >
-              <ChevronRightIcon className="size-4" />
-            </Button>
-          </div>
+        <div className="mb-4 flex items-center justify-between">
+          <h2 className="text-lg font-bold text-white">Trending Events</h2>
         </div>
 
         {/* ---- Desktop Carousel ---- */}
         <div className="hidden sm:block">
           <Carousel
-            setApi={setApi}
             opts={{
               align: "start",
               slidesToScroll: "auto",
               containScroll: "trimSnaps",
             }}
-            className="w-full"
+            className="w-full relative"
           >
             <CarouselContent className="-ml-4">
               {trendingEvents.map((event) => (
@@ -258,31 +167,34 @@ export function HeroBanner() {
                 >
                   <Link href={`/events/${event.id}`} className="group block">
                     {/* Card image */}
-                    <div className="relative aspect-video w-full overflow-hidden rounded-xl">
+                    <div className="relative aspect-4/3 w-full overflow-hidden rounded-xl transition-all duration-300 group-hover:shadow-lg">
                       <Image
                         src={event.image}
                         alt={event.title}
                         fill
-                        className="object-cover transition-transform duration-200 group-hover:scale-105"
+                        className="object-cover transition-transform duration-500 group-hover:scale-105"
                       />
                     </div>
 
                     {/* Card info */}
-                    <div className="mt-3">
-                      <p className="truncate text-lg font-semibold text-white">
+                    <div className="mt-3 px-0.5">
+                      <p className="truncate text-base font-bold text-white">
                         {event.title}
                       </p>
-                      <p className="mt-0.5 text-md text-neutral-400">
-                        {event.date}
-                      </p>
-                      <p className="mt-0.5 text-md text-neutral-400">
-                        From {event.price}
-                      </p>
+                      <div className="mt-0.5 flex items-center justify-between">
+                        <p className="text-sm text-white/50">{event.date}</p>
+                        <p className="text-sm font-medium text-white/80">
+                          From {event.price}
+                        </p>
+                      </div>
                     </div>
                   </Link>
                 </CarouselItem>
               ))}
             </CarouselContent>
+            {/* Native Shadcn Controls located appropriately */}
+            <CarouselPrevious className="absolute -left-4 top-1/2 -translate-y-1/2 border-neutral-700 bg-neutral-900/80 text-white hover:bg-neutral-800 hover:text-white" />
+            <CarouselNext className="absolute -right-4 top-1/2 -translate-y-1/2 border-neutral-700 bg-neutral-900/80 text-white hover:bg-neutral-800 hover:text-white" />
           </Carousel>
         </div>
 
@@ -313,22 +225,24 @@ export function HeroBanner() {
                       className="group flex items-center gap-3"
                     >
                       {/* Thumbnail */}
-                      <div className="relative size-12 shrink-0 overflow-hidden rounded-lg">
+                      <div className="relative size-14 shrink-0 overflow-hidden rounded-xl border border-white/10 transition-all duration-300 group-hover:border-white/20 group-hover:shadow-[0_0_20px_-5px_rgba(255,255,255,0.1)]">
                         <Image
                           src={event.image}
                           alt={event.title}
                           fill
-                          className="object-cover"
+                          className="object-cover transition-transform duration-500 group-hover:scale-110"
                         />
                       </div>
 
                       {/* Info */}
                       <div className="min-w-0 flex-1">
-                        <p className="truncate text-md font-bold text-white">
+                        <p className="truncate text-base font-bold text-white transition-colors group-hover:text-white/90">
                           {event.title}
                         </p>
-                        <p className="text-md text-neutral-400">
-                          From {event.price} · {event.date}
+                        <p className="text-sm font-medium text-white/60">
+                          From {event.price}{" "}
+                          <span className="mx-1 opacity-50">•</span>{" "}
+                          {event.date}
                         </p>
                       </div>
                     </Link>
